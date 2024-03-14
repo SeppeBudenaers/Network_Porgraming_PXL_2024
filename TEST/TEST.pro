@@ -13,3 +13,4 @@ HEADERS += \
     $$PWD/../include/nzmqt/nzmqt.hpp \
     $$PWD/../include/nzmqt/global.hpp \
     $$PWD/../include/nzmqt/impl.hpp
+
