@@ -6,6 +6,8 @@
 # Ignore build directories
 build/
 bin/
+build-IMG_Service-Desktop_Qt_6_5_3_MinGW_64_bit-Debug/
+build-Client-Desktop_Qt_6_5_3_MinGW_64_bit-Debug/
 
 # Ignore temporary files
 *.tmp
@@ -33,4 +35,3 @@ doc/
 # Ignore any log or debugging files
 *.log
 *.debug
-
