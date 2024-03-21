@@ -12,18 +12,17 @@ int main( int argc, char *argv[] )
         zmq::context_t context(1);
         zmq::socket_t PUSH(context, ZMQ_PUSH );
         zmq::socket_t SUB(context, ZMQ_SUB );
-
         PUSH.connect( "tcp://benternet.pxl-ea-ict.be:24041" );
         SUB.connect( "tcp://benternet.pxl-ea-ict.be:24042" );
 
         char Topic[100];
-        sprintf(Topic,"LogicLab>IMG_SERVICE>BW!>%s",argv[1]);
+        sprintf(Topic,"LogicLab>IMG_SERVICE!>convolution>%s",argv[1]);
         SUB.setsockopt( ZMQ_SUBSCRIBE, Topic, strlen(Topic));
         std::cout << "Subscribed :"<<Topic<< std::endl;
 
         if(PUSH.connected()){
             char Buffer[100];
-            sprintf(Buffer,"LogicLab>IMG_SERVICE>BW?>%s",argv[1]);
+            sprintf(Buffer,"LogicLab>IMG_SERVICE?>convolution>%s>IMG_DATA",argv[1]); //Must replace image data with byte array
             PUSH.send(Buffer, strlen(Buffer) );
             std::cout << "Pushed :"<<Buffer<< std::endl;
         }
