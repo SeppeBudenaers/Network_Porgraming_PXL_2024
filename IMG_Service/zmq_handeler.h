@@ -2,6 +2,7 @@
 #define ZMQ_HANDELER_H
 
 #include <nzmqt/nzmqt.hpp>
+#include <QCoreApplication>
 
 class ZMQ_Handeler
 {
@@ -9,12 +10,11 @@ public:
     ZMQ_Handeler();
 
 private:
+    zmq::context_t context = zmq::context_t(1);
+    zmq::socket_t PUSH = zmq::socket_t(context, ZMQ_PUSH);
+    zmq::socket_t SUB = zmq::socket_t(context, ZMQ_SUB);
+
     void Request_Handeler(std::string RawStr);
-
-    zmq::socket_t * PUSH;
-    zmq::socket_t * SUB;
-
-
 };
 
 #endif // ZMQ_HANDELER_H

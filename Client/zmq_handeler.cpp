@@ -15,13 +15,13 @@ void ZMQ_Handeler::Push_Image(QString Filter, QString id, QString Image)
     Topic.append(Filter);
     Topic.append(">");
     Topic.append(id);
-
-    //still need to do image paresing ect.
+    Topic.append(">");
+    Topic.append(Image);
 
     std::string Topic_Buffer = Topic.toStdString();
     const char* buffer = Topic_Buffer.c_str();
     PUSH.send(buffer, Topic_Buffer.length());
-    std::cout << "Pushed :"<<Topic.toStdString()<< std::endl;
+    std::cout << "Pushed :"<< std::endl;
 }
 
 QString ZMQ_Handeler::SUB_Image(QString Filter, QString id)

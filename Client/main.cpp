@@ -23,9 +23,8 @@ int main( int argc, char *argv[] )
         ZMQ.SUB_Image(Filter,ID);
 
         Image Preprocessed_IMG(Path);
-        Preprocessed_IMG.saveImage(outputPath);
-        std::cout<<Preprocessed_IMG.Get_imgData().toStdString()<<std::endl;
 
+        ZMQ.Push_Image(Filter,ID,Preprocessed_IMG.Get_imgData());
     }
     catch( nzmqt::ZMQException & ex )
     {
