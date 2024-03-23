@@ -26,7 +26,7 @@ QString Image::Get_imgData()
     Image.append(">");
     Image.append(QString::number(channels));
     Image.append(">");
-    Image.append("base64Data");
+    Image.append(base64Data);
     return Image;
 }
 
