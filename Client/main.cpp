@@ -14,8 +14,8 @@ int main( int argc, char *argv[] )
     try
     {
         QString Filter = "BW";
-        QString Path = "../pcb.jpg";
-        QString outputPath = "../pcb-output.jpg";
+        QString Path = "../DSCF1320.JPG";
+        QString outputPath = "../Test.JPG";
         QString ID = QString::fromUtf8(argv[1]);
 
 
@@ -23,8 +23,8 @@ int main( int argc, char *argv[] )
         ZMQ.SUB_Image(Filter,ID);
 
         Image Preprocessed_IMG(Path);
-
         ZMQ.Push_Image(Filter,ID,Preprocessed_IMG.Get_imgData());
+        ZMQ.Receiving_Image(outputPath);
     }
     catch( nzmqt::ZMQException & ex )
     {

@@ -10,6 +10,7 @@ public:
     ZMQ_Handeler();
     void Push_Image(QString Filter, QString id , QString Image);
     QString SUB_Image(QString Filter, QString id);
+    void Receiving_Image(QString outputPath);
 private:
     zmq::context_t context = zmq::context_t(1);
     zmq::socket_t PUSH = zmq::socket_t(context, ZMQ_PUSH);

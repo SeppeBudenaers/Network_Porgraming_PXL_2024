@@ -28,7 +28,6 @@ ZMQ_Handeler::ZMQ_Handeler()
 
 void ZMQ_Handeler::Request_Handeler(std::string RawStr) //kan dit gemultitheard worden //I like qtsrings need more logic like that client side.
 {
-    std::cout<<"Request handeler"<<std::endl;
     QString RawData = QString::fromStdString(RawStr);
     QStringList Tokens = RawData.split( ">" );
 
@@ -38,9 +37,10 @@ void ZMQ_Handeler::Request_Handeler(std::string RawStr) //kan dit gemultitheard 
     std::cout<<"height : "<<Tokens[5].toStdString()<<std::endl;
     std::cout<<"channels : "<<Tokens[6].toStdString()<<std::endl;
 
-    //testing image save
-    QString outputPath = "../pcb-Service-output.jpg";
-    QByteArray decodedData = QByteArray::fromBase64(Tokens[7].toUtf8());
-    stbi_write_jpg(outputPath.toStdString().c_str(), Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt(), decodedData.constData(), Tokens[4].toInt() * Tokens[6].toInt());
-    std::cout << "Image saved to: " << outputPath.toStdString() << std::endl;
+    Filter image_Process(Tokens[2],Tokens[3],Tokens[7],Tokens[4].toInt(),Tokens[5].toInt(),Tokens[6].toInt());
+
+    std::string Topic_Buffer = image_Process.Get_Response().toStdString();
+    const char* buffer = Topic_Buffer.c_str();
+    PUSH.send(buffer, Topic_Buffer.length());
+    std::cout << "Pushed :"<< std::endl;
 }
