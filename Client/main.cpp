@@ -15,7 +15,7 @@ int main( int argc, char *argv[] )
     {
         QString Filter = "BW";
         QString Path = "../pcb.jpg";
-        QString outputPath = "../pcb-output.png";
+        QString outputPath = "../pcb-output.jpg";
         QString ID = QString::fromUtf8(argv[1]);
 
 
@@ -24,6 +24,7 @@ int main( int argc, char *argv[] )
 
         Image Preprocessed_IMG(Path);
         Preprocessed_IMG.saveImage(outputPath);
+        std::cout<<Preprocessed_IMG.Get_imgData().toStdString()<<std::endl;
 
     }
     catch( nzmqt::ZMQException & ex )

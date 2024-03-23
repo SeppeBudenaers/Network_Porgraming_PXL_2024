@@ -9,6 +9,9 @@ class Image
 {
 public:
     Image(QString filepath);
+
+    QString Get_imgData(void);
+
     void saveImage(const QString& outputPath);
 
 private:
@@ -16,7 +19,7 @@ private:
     int width = 0;
     int height = 0;
     int channels = 0;
-    unsigned char* imgData;
+    QString base64Data;
 };
 
 #endif // IMAGE_H
