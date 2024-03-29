@@ -7,7 +7,7 @@ class Filter
 {
 public:
     Filter(QString FilterType, QString UserName, QString ImageData, int height, int width, int channels);
-    QString Get_Response() {return Response;};
+    QString Get_Response() {return Response;}
 private:
     QString Black_and_White(QString Data, int width, int height, int channels);
 

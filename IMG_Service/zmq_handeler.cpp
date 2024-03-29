@@ -16,7 +16,7 @@ ZMQ_Handeler::ZMQ_Handeler()
     QString Topic = "LogicLab>IMG_SERVICE?";
     std::string Topic_Buffer = Topic.toStdString();
     const char* buffer = Topic_Buffer.c_str();
-    SUB.setsockopt(ZMQ_SUBSCRIBE,buffer, Topic_Buffer.length());
+    SUB.setsockopt(ZMQ_SUBSCRIBE, Topic.toStdString().c_str(), Topic.length());
 
     while( SUB.connected() )
     {
@@ -26,10 +26,12 @@ ZMQ_Handeler::ZMQ_Handeler()
     }
 }
 
-void ZMQ_Handeler::Request_Handeler(std::string RawStr) //kan dit gemultitheard worden //I like qtsrings need more logic like that client side.
+void ZMQ_Handeler::Request_Handeler(std::string RawStr) //kan dit gemultitheard worden
 {
     QString RawData = QString::fromStdString(RawStr);
     QStringList Tokens = RawData.split( ">" );
+
+    // size check  for safety
 
     std::cout<<"filter : "<<Tokens[2].toStdString()<<std::endl;
     std::cout<<"ID : "<<Tokens[3].toStdString()<<std::endl;
