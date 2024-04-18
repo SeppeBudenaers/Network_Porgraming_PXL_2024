@@ -11,8 +11,8 @@ YES_img[Yes]
 NO_PASS[No]
 YES_PASS[Yes]
 
-User --> |LogicLab>STEG_SERVICE?>PASSWORD>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA| Service
-
+User --> |LogicLab>STEG_SERVICE?>PASSWORD>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA| ide1
+subgraph ide1 [Steganographie Service]
 Service --> IF_IMG{Has Image attached ?}
 IF_IMG --> NO_img
 NO_img --> |ASK for Image|Kobe
@@ -25,6 +25,8 @@ IF_PASS --> NO_PASS
 NO_PASS --> |ASK for Password|Kobe
 IF_PASS --> YES_PASS
 YES_PASS --> Stegfun
+end
+
 Stegfun --> |LogicLab>STEG_SERVICE!>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA| User
 
 
