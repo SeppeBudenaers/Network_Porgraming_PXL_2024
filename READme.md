@@ -68,3 +68,18 @@ Response --> |LogicLab>IMG_SERVICE!>FILTER>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED 
 | Client    | Er is een rudimentaire client voorzien om niet elk commando apart te moeten typen. Het is echter een domme zender en gerichte ontvanger en/of het is een samenraapsel van executables die bepaalde delen uittesten. | Er is een effectieve client die de nodige diensten kan aanroepen en de reacties weergeeft, echter is ze duidelijk onstabiel en niet aangenaam in gebruik. | Er is een MVP product werkende en de stabiele client kan dit volledig gebruiken. Het is een leverbaar geheel met alle nodige uitleg om dit goede te kunnen gebruiken. | Er is een MVP product werkende en de stabiele client kan dit volledig gebruiken. Het is een leverbaar geheel met alle nodige uitleg om dit goede te kunnen gebruiken. | Er is een stabiele client met een duidelijke en ordelijke GUI. |
 |           | Er is 1 extra uitgevoerd (e.g. andere programmeertaal voor client of 2de service, andere netwerkcommunicaties, onderzoeken en aan de praat krijgen van andere apparatuur dat daardoor werkt of te bedienen is over Benternet, onderzoeken en aan de praat krijgen van andere libraries), maar niet heel goed en/of niet echt werkend, maar duidelijk wel aan gewerkt. | Er is 1 extra goed uitgevoerd, of meerdere niet kwalitatieve extra's. | Er is 1 extra perfect uitgevoerd en compleet werkend en geïntegreerd deel in het project, of meerdere kwalitatieve extra's. | Er zijn 2 perfect uitgevoerde extra's.                       | Er zijn 3+ perfect uitgevoerde extra's.                      |
 
+## Todo
+
+- [ ] Make a basic image object and every filter is a child 
+
+- [ ] Make service inputs more flexible aka no fixed positions for data ```LogicLab>(Service name )?>(Data in random order)```
+
+- [ ] Multithread de request handeler
+
+- [ ] Design a steganography system to write and retrive pwd
+
+- [ ] Beg Kobe to make his services
+
+
+
+  
