@@ -23,14 +23,14 @@ User --> |LogicLab>STEG_SERVICE?>$USERNAME>$PASSWORD>$WIDTH>$HEIGHT>$CHANNELS>$B
 subgraph ide1 [Steganographie Service]
 Service --> IF_IMG{Has Image attached ?}
 IF_IMG --> NO_img
-NO_img --> |ASK for Image|Kobe
+NO_img --> |PhotoGenic?JSON with prompt and options|Kobe
 IF_IMG --> YES_img
 YES_img --> Stegfun
 Kobe --> Stegfun
 
 Service --> IF_PASS{Has Password?}
 IF_PASS --> NO_PASS
-NO_PASS --> |ASK for Password|Kobe
+NO_PASS --> |Prime?|Kobe
 IF_PASS --> YES_PASS
 YES_PASS --> Stegfun
 end
