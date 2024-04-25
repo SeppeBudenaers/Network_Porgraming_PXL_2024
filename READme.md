@@ -8,38 +8,7 @@ use `ZMQ` to
 
 - send to `LogicLab>STEG_SERVICE?>{$USERNAME}>{$PASSWORD}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
 ### Concept Diagram
-```mermaid
-flowchart TD
-User(User)
-Service[Image Service]
-Kobe[Kobe's service]
-Stegfun[Stegonagrafie funtion]
-NO_img[No]
-YES_img[Yes]
-NO_PASS[No]
-YES_PASS[Yes]
-
-User --> |LogicLab>STEG_SERVICE?>$USERNAME>$PASSWORD>$WIDTH>$HEIGHT>$CHANNELS>$BASE64 ENCODED IMG DATA| ide1
-subgraph ide1 [Steganographie Service]
-Service --> IF_IMG{Has Image attached ?}
-IF_IMG --> NO_img
-NO_img --> |PhotoGenic?JSON with prompt and options|Kobe
-IF_IMG --> YES_img
-YES_img --> Stegfun
-Kobe --> Stegfun
-
-Service --> IF_PASS{Has Password?}
-IF_PASS --> NO_PASS
-NO_PASS --> |Prime?|Kobe
-IF_PASS --> YES_PASS
-YES_PASS --> Stegfun
-end
-
-Stegfun --> |LogicLab>STEG_SERVICE!>$USERNAME>$WIDTH>$HEIGHT>$CHANNELS>$BASE64 ENCODED IMG DATA| User
-
-
-
-```
+![Concept Diagram](Resources/Blank diagram (1).png)
 ## Filter service
 ### how to use it 
 use `ZMQ` to 
