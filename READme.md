@@ -7,7 +7,7 @@ use `ZMQ` to
   with an expected return of `LogicLab>STEG_SERVICE!>{$USERNAME}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
 
 - send to `LogicLab>STEG_SERVICE?>{$USERNAME}>{$PASSWORD}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
-### flowchart 
+### Concept Diagram
 ```mermaid
 flowchart TD
 User(User)
@@ -48,6 +48,8 @@ use `ZMQ` to
   with an expected return of `LogicLab>STEG_SERVICE!>{$USERNAME}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
 
 - send to `LogicLab>STEG_SERVICE?>$USERNAME>$PASSWORD>$WIDTH>$HEIGHT>$CHANNELS>$BASE64 ENCODED IMG DATA`
+
+### Concept Diagram
 ```mermaid
 flowchart TD
 User(User)
