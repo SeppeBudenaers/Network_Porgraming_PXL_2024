@@ -1,5 +1,13 @@
 
 ## Steganografie  service
+### how to use it 
+use `ZMQ` to 
+
+- Subscribe to `LogicLab>STEG_SERVICE!>{$USERNAME}>`
+  with an expected return of `LogicLab>STEG_SERVICE!>{$USERNAME}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
+
+- send to `LogicLab>STEG_SERVICE?>{$USERNAME}>{$PASSWORD}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
+### Concept Diagram
 ```mermaid
 flowchart TD
 User(User)
@@ -11,28 +19,37 @@ YES_img[Yes]
 NO_PASS[No]
 YES_PASS[Yes]
 
-User --> |LogicLab>STEG_SERVICE?>PASSWORD>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA| ide1
+User --> |LogicLab>STEG_SERVICE?>$USERNAME>$PASSWORD>$WIDTH>$HEIGHT>$CHANNELS>$BASE64 ENCODED IMG DATA| ide1
 subgraph ide1 [Steganographie Service]
 Service --> IF_IMG{Has Image attached ?}
 IF_IMG --> NO_img
-NO_img --> |ASK for Image|Kobe
+NO_img --> |PhotoGenic?JSON with prompt and options|Kobe
 IF_IMG --> YES_img
 YES_img --> Stegfun
 Kobe --> Stegfun
 
 Service --> IF_PASS{Has Password?}
 IF_PASS --> NO_PASS
-NO_PASS --> |ASK for Password|Kobe
+NO_PASS --> |Prime?|Kobe
 IF_PASS --> YES_PASS
 YES_PASS --> Stegfun
 end
 
-Stegfun --> |LogicLab>STEG_SERVICE!>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA| User
+Stegfun --> |LogicLab>STEG_SERVICE!>$USERNAME>$WIDTH>$HEIGHT>$CHANNELS>$BASE64 ENCODED IMG DATA| User
 
 
 
 ```
 ## Filter service
+### how to use it 
+use `ZMQ` to 
+
+- Subscribe to `LogicLab>STEG_SERVICE!>{$USERNAME}>`
+  with an expected return of `LogicLab>STEG_SERVICE!>{$USERNAME}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
+
+- send to `LogicLab>STEG_SERVICE?>$USERNAME>$PASSWORD>$WIDTH>$HEIGHT>$CHANNELS>$BASE64 ENCODED IMG DATA`
+
+### Concept Diagram
 ```mermaid
 flowchart TD
 User(User)
