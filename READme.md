@@ -8,7 +8,7 @@ use `ZMQ` to
 
 - send to `LogicLab>STEG_SERVICE?>{$USERNAME}>{$PASSWORD}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
 ### Concept Diagram
-![Concept Diagram](./Resources/Blank diagram (1).png)
+![Concept Diagram](Resources/Blankdiagram(1).png)
 ## Filter service
 ### how to use it 
 use `ZMQ` to 
