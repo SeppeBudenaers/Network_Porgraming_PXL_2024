@@ -13,7 +13,8 @@ public slots:
     void processRequest(const QString &rawStr);
 
 signals:
-    void requestProcessed(const std::string &response);
+    void finished();
+    // void requestProcessed(const std::string &response);
 private:
     zmq::context_t context = zmq::context_t(1);
     zmq::socket_t PUSH = zmq::socket_t(context, ZMQ_PUSH);

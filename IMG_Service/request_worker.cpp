@@ -48,4 +48,5 @@ void Request_Worker::processRequest(const QString &rawStr) {
     const char* buffer = Topic_Buffer.c_str();
     PUSH.send(buffer, Topic_Buffer.length());
     std::cout << "Pushed :"<< std::endl;
+    emit finished();
 }
