@@ -26,13 +26,12 @@ ZMQ_Handeler::ZMQ_Handeler() {
         zmq::message_t *msg = new zmq::message_t();
         SUB.recv(msg);
         QThread *thread = new QThread;
-        Request_Worker *worker = new Request_Worker;
+        Request_Worker *worker = new Request_Worker(nullptr,this);
         worker->moveToThread(thread);
 
         QEventLoop::connect(thread, &QThread::started, [worker, msg]() {
             worker->processRequest(QString::fromStdString(msg->to_string()));
         });
-        QObject::connect(worker, SIGNAL(requestProcessed(const std::string &response)),this,SLOT(mySlot(const std::string &response)));
         thread->start();
     }
 }
