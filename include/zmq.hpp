@@ -26,6 +26,7 @@
 #ifndef __ZMQ_HPP_INCLUDED__
 #define __ZMQ_HPP_INCLUDED__
 
+#include <iostream>
 #ifdef _WIN32
 #ifndef NOMINMAX
 #define NOMINMAX

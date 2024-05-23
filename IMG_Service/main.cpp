@@ -9,10 +9,12 @@ int main( int argc, char *argv[] )
     try
     {
         ZMQ_Handeler ZMQ;
+        ZMQ.Service();
+
     }
     catch( nzmqt::ZMQException & ex )
     {
         std::cerr << "Caught an exception : " << ex.what();
     }
-    return a.exec();
+    a.exec();
 }
