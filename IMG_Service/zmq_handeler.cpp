@@ -1,6 +1,7 @@
 #include "zmq_handeler.h"
 #include "image.h"
 #include "image_bw.h"
+#include "image_rgb.h"
 #include <iostream>
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -56,6 +57,14 @@ void ZMQ_Handeler::Request_Handeler(std::string RawStr) //kan dit gemultitheard 
 
     if(QString::compare(Tokens[2],"BW",Qt::CaseInsensitive) == 0){
         Image_BW image_Process(Tokens[2],Tokens[3],Tokens[7],Tokens[4].toInt(),Tokens[5].toInt(),Tokens[6].toInt());
+        image_Process.filter();
+        Topic_Buffer = image_Process.Get_Response().toStdString();
+    }
+
+    if (QString::compare(Tokens[2], "R", Qt::CaseInsensitive) == 0 ||
+        QString::compare(Tokens[2], "G", Qt::CaseInsensitive) == 0 ||
+        QString::compare(Tokens[2], "B", Qt::CaseInsensitive) == 0) {
+        Image_RGB image_Process(Tokens[2],Tokens[3],Tokens[7],Tokens[4].toInt(),Tokens[5].toInt(),Tokens[6].toInt());
         image_Process.filter();
         Topic_Buffer = image_Process.Get_Response().toStdString();
     }

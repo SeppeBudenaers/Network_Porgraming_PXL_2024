@@ -10,6 +10,7 @@ INCLUDEPATH += $$PWD/../include
 SOURCES += main.cpp \
     image.cpp \
     image_bw.cpp \
+    image_rgb.cpp \
     zmq_handeler.cpp
 
 HEADERS += \
@@ -18,4 +19,5 @@ HEADERS += \
     $$PWD/../include/nzmqt/impl.hpp \
     image.h \
     image_bw.h \
+    image_rgb.h \
     zmq_handeler.h
