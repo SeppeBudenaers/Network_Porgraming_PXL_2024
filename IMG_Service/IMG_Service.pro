@@ -11,6 +11,7 @@ SOURCES += main.cpp \
     image.cpp \
     image_bw.cpp \
     image_rgb.cpp \
+    request_worker.cpp \
     zmq_handeler.cpp
 
 HEADERS += \
@@ -20,4 +21,5 @@ HEADERS += \
     image.h \
     image_bw.h \
     image_rgb.h \
+    request_worker.h \
     zmq_handeler.h

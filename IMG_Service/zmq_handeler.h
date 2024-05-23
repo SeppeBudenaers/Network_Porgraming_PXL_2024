@@ -1,6 +1,7 @@
 #ifndef ZMQ_HANDELER_H
 #define ZMQ_HANDELER_H
 
+#include <iostream>
 #include <nzmqt/nzmqt.hpp>
 #include <QCoreApplication>
 

@@ -13,9 +13,9 @@ int main( int argc, char *argv[] )
     QCoreApplication a(argc, argv);
     try
     {
-        QString Filter = "b";
-        QString Path = "../Untitled.png";
-        QString outputPath = "../Test.JPG";
+        QString Filter = "R";
+        QString Path = "../Screenshot 2024-05-12 211043.png";
+        QString outputPath = "../Test2.JPG";
         QString ID = QString::fromUtf8(argv[1]);
 
 

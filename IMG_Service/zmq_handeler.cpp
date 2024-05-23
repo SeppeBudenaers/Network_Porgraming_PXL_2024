@@ -16,7 +16,6 @@ void ZMQ_Handeler::Service(){
 
     SUB.connect("tcp://benternet.pxl-ea-ict.be:24042");
     QString Topic = "LogicLab>IMG_SERVICE?";
-
     SUB.setsockopt(ZMQ_SUBSCRIBE, Topic.toStdString().c_str(), Topic.length());
 
     while (SUB.connected()) {
