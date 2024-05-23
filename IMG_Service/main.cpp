@@ -9,6 +9,7 @@ int main( int argc, char *argv[] )
     try
     {
         ZMQ_Handeler ZMQ;
+        a.exec();
     }
     catch( nzmqt::ZMQException & ex )
     {

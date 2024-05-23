@@ -2,7 +2,9 @@
 #define REQUEST_WORKER_H
 #include <QObject>
 #include <QString>
-#include"zmq_handeler.h"
+#include <zmq.hpp>
+#include <iostream>
+#include <nzmqt/nzmqt.hpp>
 
 class Request_Worker : public QObject {
     Q_OBJECT
