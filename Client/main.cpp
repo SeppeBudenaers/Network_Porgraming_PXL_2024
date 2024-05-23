@@ -14,7 +14,7 @@ int main( int argc, char *argv[] )
     try
     {
         QString Filter = "BW";
-        QString Path = "../Untitled.JPG";
+        QString Path = "../Screenshot 2024-05-12 210829.JPG";
         QString outputPath = "../Test.JPG";
         QString ID = QString::fromUtf8(argv[1]);
 

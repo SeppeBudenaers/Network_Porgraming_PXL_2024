@@ -8,12 +8,14 @@ LIBS += -L$$PWD/../lib -lnzmqt -lzmq -lws2_32 -lIphlpapi
 INCLUDEPATH += $$PWD/../include
 
 SOURCES += main.cpp \
-    filter.cpp \
+    image.cpp \
+    image_bw.cpp \
     zmq_handeler.cpp
 
 HEADERS += \
     $$PWD/../include/nzmqt/nzmqt.hpp \
     $$PWD/../include/nzmqt/global.hpp \
     $$PWD/../include/nzmqt/impl.hpp \
-    filter.h \
+    image.h \
+    image_bw.h \
     zmq_handeler.h
