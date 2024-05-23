@@ -34,28 +34,3 @@ void Image_BW::filter()
     //encoding it again
     Response.append(decodedImage.toBase64());
 }
-
-
-
-
-
-//Filter::Filter(QString FilterType, QString UserName, QString ImageData,int width , int height,  int channels) : Filter_Type(FilterType),User_Name(UserName),Width(width), Height(height), Channels(channels), Image_Data(ImageData)
-//{
-//    std::cout<<"Filter Type : "<<Filter_Type.toStdString()<<std::endl;
-//    std::cout<<"User Name : "<<User_Name.toStdString()<<std::endl;
-
-
-
-//
-
-//    if(QString::compare(Filter_Type,"BW",Qt::CaseInsensitive) == 0)
-//    {
-//        Response.append(">");
-//        Response.append(Black_and_White(Image_Data,Width,Height,Channels));
-//    }
-//    else
-//    {
-//        Response.append(">");
-//        Response.append("Invalid Filter");
-//    }
-//}
