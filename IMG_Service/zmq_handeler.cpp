@@ -22,7 +22,7 @@ void ZMQ_Handeler::Service(){
         zmq::message_t *msg = new zmq::message_t();
         SUB.recv(msg);
         QThread *thread = new QThread;
-        Request_Worker *worker = new Request_Worker(nullptr);
+        Request_Worker *worker = new Request_Worker;
         worker->moveToThread(thread);
 
         QEventLoop::connect(thread, &QThread::started, [worker, msg]() {

@@ -7,7 +7,7 @@
 class Request_Worker : public QObject {
     Q_OBJECT
 public:
-    explicit Request_Worker(QObject *parent = nullptr, ZMQ_Handeler * ZMQ_HANDELER = nullptr) : QObject(parent), ZMQ_Handeler(ZMQ_HANDELER){}
+    explicit Request_Worker(QObject *parent = nullptr) : QObject(parent){}
 
 public slots:
     void processRequest(const QString &rawStr);
@@ -17,7 +17,6 @@ signals:
 private:
     zmq::context_t context = zmq::context_t(1);
     zmq::socket_t PUSH = zmq::socket_t(context, ZMQ_PUSH);
-    ZMQ_Handeler * ZMQ_Handeler;
 };
 
 #endif // REQUEST_WORKER_H
