@@ -16,9 +16,9 @@ void Request_Worker::processRequest(const QString &rawStr) {
         error.append(">");
         std::string Error = error.toStdString();
         const char* buffer = Error.c_str();
-        ZMQ_Handeler->PUSH.send(buffer, error.length());
+        PUSH.send(buffer, error.length());
         std::cout << "Pushed :"<< std::endl;
-        //emit requestProcessed(Error);
+        emit finished();
         return;
     }
 
@@ -44,6 +44,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
         Topic_Buffer = image_Process.Get_Response().toStdString();
     }
     const char* buffer = Topic_Buffer.c_str();
-    ZMQ_Handeler->PUSH.send(buffer, Topic_Buffer.length());
+    PUSH.send(buffer, Topic_Buffer.length());
     std::cout << "Pushed :"<< std::endl;
+    emit finished();
 }

@@ -25,7 +25,7 @@ ZMQ_Handeler::ZMQ_Handeler(QObject *parent) : QObject(parent), SUB(ZMQ_context, 
     connect(timer, &QTimer::timeout, this, &ZMQ_Handeler::Service);
     timer->start(100); // Adjust the interval as needed
 }
-void ZMQ_Handler::Service() {
+void ZMQ_Handeler::Service() {
     if (SUB.connected()) {
         std::cout << "Connected to the server" << std::endl;
         zmq::message_t *msg = new zmq::message_t();
