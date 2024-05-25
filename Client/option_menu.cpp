@@ -1,11 +1,6 @@
 #include "option_menu.h"
 #include <iostream>
 
-Option_Menu::Option_Menu()
-{
-
-}
-
 int Option_Menu::Option_handeler(QString *string)
 {
     if(QString::compare(*string, "Q", Qt::CaseInsensitive) == 0){return 1;}  // quit
