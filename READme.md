@@ -1,22 +1,11 @@
-
-## Steganografie  service
+## Image service
 ### how to use it 
 use `ZMQ` to 
 
 - Subscribe to `LogicLab>STEG_SERVICE!>{$USERNAME}>`
-  with an expected return of `LogicLab>STEG_SERVICE!>{$USERNAME}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
+  with an expected return of `LogicLab>IMG_SERVICE!>{$USERNAME}>{$FILTER}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
 
-- send to `LogicLab>STEG_SERVICE?>{$USERNAME}>{$PASSWORD}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
-### Concept Diagram
-![Concept Diagram](Resources/Blankdiagram(1).png)
-## Filter service
-### how to use it 
-use `ZMQ` to 
-
-- Subscribe to `LogicLab>STEG_SERVICE!>{$USERNAME}>`
-  with an expected return of `LogicLab>STEG_SERVICE!>{$USERNAME}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
-
-- send to `LogicLab>STEG_SERVICE?>$USERNAME>$PASSWORD>$WIDTH>$HEIGHT>$CHANNELS>$BASE64 ENCODED IMG DATA`
+- send to `LogicLab>IMG_SERVICE?>{$USERNAME}>{$FILTER}>{$WIDTH}>{$HEIGHT}>{$CHANNELS}>{$BASE64 ENCODED IMG DATA}`
 
 ### Concept Diagram
 ```mermaid
@@ -27,18 +16,20 @@ Filter{Filter switch}
 
 Response[Response]
 
-User --> |LogicLab>IMG_SERVICE?>FILTER>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA| Service
+User --> |LogicLab>IMG_SERVICE?>USERNAME>FILTER>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA| Service
 Service --> Filter
 
 Filter --> |BW|BW[Grayscale]
-Filter --> |CONVO|CONVO[Convolution]
-Filter --> |SMOOTH|SMOOTH[Smoothing]
+Filter --> |R|R[Red]
+Filter --> |G|G[Green]
+Filter --> |B|B[Blue]
 
 BW --> Response
-CONVO --> Response
-SMOOTH -->Response
+R --> Response
+G -->Response
+B -->Response
 
-Response --> |LogicLab>IMG_SERVICE!>FILTER>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA|User
+Response --> |LogicLab>IMG_SERVICE!>USERNAME>FILTER>WIDTH>HEIGHT>CHANNELS>BASE64 ENCODED IMG DATA|User
 
 
 
