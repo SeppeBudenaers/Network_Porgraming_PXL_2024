@@ -3,6 +3,7 @@
 #include <nzmqt/nzmqt.hpp>
 #include <QCoreApplication>
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
 
 int main( int argc, char *argv[] )
 {

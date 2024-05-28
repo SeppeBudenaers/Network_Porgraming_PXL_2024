@@ -7,9 +7,10 @@ class Image
     private:
         void createDirectoryIfNotExists(QString qPath);
     public:
-        Image(QString FilterType, QString UserName, QString ImageData, int width,int height, int channels) : Filter_Type(FilterType),User_Name(UserName), Width(width), Height(height), Channels(channels), Image_Data(ImageData){}
+        Image(QString FilterType = "", QString UserName = "", QString ImageData = "", int width = 0,int height = 0, int channels = 0) : Filter_Type(FilterType),User_Name(UserName), Width(width), Height(height), Channels(channels), Image_Data(ImageData){}
         virtual void filter(){};
         void SaveImage(QString SaveName);
+        void RetriveImage(QString filepath);
         QString Get_Response() {return Response;}
     protected:
         QString Response;

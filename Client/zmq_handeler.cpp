@@ -21,8 +21,8 @@ void ZMQ_Handeler::Push_Image(QString Image)
     Topic.append(">");
     Topic.append(ID);
     Topic.append(">");
-    Topic.append(Image);
-    Topic.append(">");
+//    Topic.append(Image);
+//    Topic.append(">");
     Topic.append("bingbong.jpg");
 
 

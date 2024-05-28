@@ -7,8 +7,8 @@
 void Request_Worker::processRequest(const QString &rawStr) {
     std::string Topic_Buffer;
     QStringList Tokens = rawStr.split(">");
-
     PUSH.connect("tcp://benternet.pxl-ea-ict.be:24041");
+
     /*ERROR HANDELING*/
     if (Tokens.size() <= 2) {
         QString Error = "NoAplication";
@@ -18,7 +18,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
     }
     else{Aplication = Tokens[2];}
 
-    if(Tokens.size() <= 3){
+    if(Tokens.size() <= 3 ){
         QString Error = "NoID";
         Send_Error(Error);
         std::cout << Error.toStdString() << std::endl;
@@ -26,19 +26,38 @@ void Request_Worker::processRequest(const QString &rawStr) {
     }
     else{ID = Tokens[3];}
 
-    /*RETRIVING IMAGE*/
+    /*ERROR HANDELING RETRIVING IMAGES*/
+     if(Tokens.size() <= 4 ){
+        QString Error = "NoFileName";
+        Send_Error(Error);
+        std::cout << Error.toStdString() << std::endl;
+        return;
+    }
 
+    /*RETRIVING IMAGE*/
+    if (QString::compare(Tokens[2], "RETRIVE", Qt::CaseInsensitive) == 0 ) {
+        Image image_Process(Tokens[2], Tokens[3]);
+        image_Process.RetriveImage(Tokens[4]);
+        Topic_Buffer = image_Process.Get_Response().toStdString();
+
+        /*PUSHING AWSNER BACK*/
+        const char* buffer = Topic_Buffer.c_str();
+        PUSH.send(buffer, Topic_Buffer.length());
+        std::cout << "Pushed4 :"<< std::endl;
+        emit finished();
+        return;
+    }
 
 
     /*ERROR HANDELING IMAGES*/
-    if (Tokens.size() <= 7) {
+    if (Tokens.size() <= 7 ) {
         QString Error = "InvalidImage";
         Send_Error(Error);
         std::cout << Error.toStdString() << std::endl;
         return;
     }
 
-    if(QByteArray::fromBase64(Tokens[7].toUtf8()).size() != (Tokens[4].toInt() * Tokens[5].toInt() * Tokens[6].toInt())){
+    if(QByteArray::fromBase64(Tokens[7].toUtf8()).size() != (Tokens[4].toInt() * Tokens[5].toInt() * Tokens[6].toInt()) ){
         QString Error = "InvalidImageSize";
         Send_Error(Error);
         std::cout << Error.toStdString() << std::endl;
@@ -47,21 +66,35 @@ void Request_Worker::processRequest(const QString &rawStr) {
 
 
     /*IMAGE FILTERS*/
-    if (QString::compare(Tokens[2], "BW", Qt::CaseInsensitive) == 0) {
+    if (QString::compare(Tokens[2], "BW", Qt::CaseInsensitive) == 0 ) {
         Image_BW image_Process(Tokens[2], Tokens[3], Tokens[7], Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt());
         image_Process.filter();
         Topic_Buffer = image_Process.Get_Response().toStdString();
+
+        /*PUSHING AWSNER BACK*/
+        const char* buffer = Topic_Buffer.c_str();
+        PUSH.send(buffer, Topic_Buffer.length());
+        std::cout << "Pushed4 :"<< std::endl;
+        emit finished();
+        return;
     }
 
-    if (QString::compare(Tokens[2], "R", Qt::CaseInsensitive) == 0 || QString::compare(Tokens[2], "G", Qt::CaseInsensitive) == 0 ||QString::compare(Tokens[2], "B", Qt::CaseInsensitive) == 0) {
+    if (QString::compare(Tokens[2], "R", Qt::CaseInsensitive) == 0 || QString::compare(Tokens[2], "G", Qt::CaseInsensitive) == 0 ||QString::compare(Tokens[2], "B", Qt::CaseInsensitive) == 0 ) {
         Image_RGB image_Process(Tokens[2], Tokens[3], Tokens[7], Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt());
         image_Process.filter();
         Topic_Buffer = image_Process.Get_Response().toStdString();
+
+        /*PUSHING AWSNER BACK*/
+        const char* buffer = Topic_Buffer.c_str();
+        PUSH.send(buffer, Topic_Buffer.length());
+        std::cout << "Pushed4 :"<< std::endl;
+        emit finished();
+        return;
     }
 
 
     /*ERROR HANDELING SAVING IMAGES*/
-    if (Tokens.size() <= 8) {
+    if (Tokens.size() <= 8 ) {
         QString Error = "InvalidSavingName";
         Send_Error(Error);
         std::cout << Error.toStdString() << std::endl;
@@ -69,10 +102,17 @@ void Request_Worker::processRequest(const QString &rawStr) {
     }
 
     /*SAVING IMAGES*/
-    if (QString::compare(Tokens[2], "SAVE", Qt::CaseInsensitive) == 0){
+    if (QString::compare(Tokens[2], "SAVE", Qt::CaseInsensitive) == 0 ){
         Image image_Process(Tokens[2], Tokens[3], Tokens[7], Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt());
         image_Process.SaveImage(Tokens[8]);
         Topic_Buffer = image_Process.Get_Response().toStdString();
+
+        /*PUSHING AWSNER BACK*/
+        const char* buffer = Topic_Buffer.c_str();
+        PUSH.send(buffer, Topic_Buffer.length());
+        std::cout << "Pushed4 :"<< std::endl;
+        emit finished();
+        return;
     }
 
     /*ERROR HANDELING APLICATION*/
@@ -82,12 +122,6 @@ void Request_Worker::processRequest(const QString &rawStr) {
         std::cout << Error.toStdString() << std::endl;
         return;
     }
-
-    /*PUSHING AWSNER BACK*/
-    const char* buffer = Topic_Buffer.c_str();
-    PUSH.send(buffer, Topic_Buffer.length());
-    std::cout << "Pushed4 :"<< std::endl;
-    emit finished();
 }
 
 void Request_Worker::Send_Error(QString Error)
