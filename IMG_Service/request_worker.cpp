@@ -12,9 +12,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
     if (Tokens.size() <= 2) {
         QString Error = "NoAplication";
         Send_Error(Error);
-        std::cout << "Noaplicatio" << std::endl;
-        emit finished();
-        std::cout << "Pushed1 :"<< std::endl;
+        std::cout << Error.toStdString() << std::endl;
         return;
     }
     else{Aplication = Tokens[2];}
@@ -22,9 +20,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
     if(Tokens.size() <= 3){
         QString Error = "NoID";
         Send_Error(Error);
-        std::cout << "noid" << std::endl;
-        emit finished();
-        std::cout << "Pushed2 :"<< std::endl;
+        std::cout << Error.toStdString() << std::endl;
         return;
     }
     else{ID = Tokens[3];}
@@ -32,9 +28,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
     if (Tokens.size() <= 7) { //should maybe check that IMGdata = height *width* channels
         QString Error = "InvalidImage";
         Send_Error(Error);
-        std::cout << "InvalidImage" << std::endl;
-        emit finished();
-        std::cout << "Pushed3 :"<< std::endl;
+        std::cout << Error.toStdString() << std::endl;
         return;
     }
 
@@ -79,10 +73,10 @@ void Request_Worker::Send_Error(QString Error)
         error.append(">");
     }
     else{
-            error.append(Aplication);
-            error.append(">");
-            error.append(ID);
-            error.append(">");
+        error.append(Aplication);
+        error.append(">");
+        error.append(ID);
+        error.append(">");
     }
 
     error.append(Error);
@@ -91,6 +85,6 @@ void Request_Worker::Send_Error(QString Error)
     std::string std_error = error.toStdString();
     const char* buffer = std_error.c_str();
     PUSH.send(buffer, error.length());
-    //emit requestProcessed(Error);
+    emit finished();
     return;
 }
