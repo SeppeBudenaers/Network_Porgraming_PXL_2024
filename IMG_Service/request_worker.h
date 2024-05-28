@@ -16,8 +16,12 @@ signals:
     void finished();
     // void requestProcessed(const std::string &response);
 private:
+    void Send_Error(QString Error);
     zmq::context_t context = zmq::context_t(1);
     zmq::socket_t PUSH = zmq::socket_t(context, ZMQ_PUSH);
+
+    QString ID;
+    QString Aplication;
 };
 
 #endif // REQUEST_WORKER_H

@@ -55,9 +55,12 @@ void ZMQ_Handeler::Receiving_Image() {
     QString RawData = QString::fromStdString(message.to_string());
     QStringList Tokens = RawData.split( ">" );
     //testing image save
-    QByteArray decodedData = QByteArray::fromBase64(Tokens[7].toUtf8());
-    stbi_write_jpg(OutputPath.toStdString().c_str(), Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt(), decodedData.constData(), Tokens[4].toInt() * Tokens[6].toInt());
-    std::cout << "Image saved to: " << OutputPath.toStdString() << std::endl;
+    if(Tokens.size() <= 7){ std::cout <<  message <<std::endl; }
+    else{
+        QByteArray decodedData = QByteArray::fromBase64(Tokens[7].toUtf8());
+        stbi_write_jpg(OutputPath.toStdString().c_str(), Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt(), decodedData.constData(), Tokens[4].toInt() * Tokens[6].toInt());
+        std::cout << "Image saved to: " << OutputPath.toStdString()<<std::endl;
+    }
 }
 void ZMQ_Handeler::Client() {
         std::string filter;

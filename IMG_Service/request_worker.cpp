@@ -6,24 +6,39 @@
 
 void Request_Worker::processRequest(const QString &rawStr) {
     PUSH.connect("tcp://benternet.pxl-ea-ict.be:24041");
+
     QStringList Tokens = rawStr.split(">");
-    if (Tokens.size() < 7) {
-        QString error;
-        error.append("LogicLab>IMG_SERVICE!");
-        error.append(">");
-        error.append(Tokens[2]);
-        error.append(">");
-        error.append(Tokens[3]);
-        error.append(">");
-        std::string Error = error.toStdString();
-        const char* buffer = Error.c_str();
-        PUSH.send(buffer, error.length());
-        std::cout << "Pushed :"<< std::endl;
-        //emit requestProcessed(Error);
+
+    if (Tokens.size() <= 2) {
+        QString Error = "NoAplication";
+        Send_Error(Error);
+        std::cout << "Noaplicatio" << std::endl;
+        emit finished();
+        std::cout << "Pushed1 :"<< std::endl;
+        return;
+    }
+    else{Aplication = Tokens[2];}
+
+    if(Tokens.size() <= 3){
+        QString Error = "NoID";
+        Send_Error(Error);
+        std::cout << "noid" << std::endl;
+        emit finished();
+        std::cout << "Pushed2 :"<< std::endl;
+        return;
+    }
+    else{ID = Tokens[3];}
+
+    if (Tokens.size() <= 7) { //should maybe check that IMGdata = height *width* channels
+        QString Error = "InvalidImage";
+        Send_Error(Error);
+        std::cout << "InvalidImage" << std::endl;
+        emit finished();
+        std::cout << "Pushed3 :"<< std::endl;
         return;
     }
 
-    std::cout << "filter : " << Tokens[2].toStdString() << std::endl;
+    std::cout << "application : " << Tokens[2].toStdString() << std::endl;
     std::cout << "ID : " << Tokens[3].toStdString() << std::endl;
     std::cout << "width : " << Tokens[4].toStdString() << std::endl;
     std::cout << "height : " << Tokens[5].toStdString() << std::endl;
@@ -44,9 +59,38 @@ void Request_Worker::processRequest(const QString &rawStr) {
         image_Process.filter();
         Topic_Buffer = image_Process.Get_Response().toStdString();
     }
+
+    //sending it back
     std::cout << "Pushing :"<< std::endl;
     const char* buffer = Topic_Buffer.c_str();
     PUSH.send(buffer, Topic_Buffer.length());
-    std::cout << "Pushed :"<< std::endl;
+    std::cout << "Pushed4 :"<< std::endl;
     emit finished();
+}
+
+void Request_Worker::Send_Error(QString Error)
+{
+    QString error;
+    error.append("LogicLab>IMG_SERVICE!");
+    error.append(">");
+    if (QString::compare(Error, "NoAplication", Qt::CaseInsensitive) == 0){}
+    else if(QString::compare(Error, "NoID", Qt::CaseInsensitive) == 0){
+        error.append(Aplication);
+        error.append(">");
+    }
+    else{
+            error.append(Aplication);
+            error.append(">");
+            error.append(ID);
+            error.append(">");
+    }
+
+    error.append(Error);
+
+    //sending it to client
+    std::string std_error = error.toStdString();
+    const char* buffer = std_error.c_str();
+    PUSH.send(buffer, error.length());
+    //emit requestProcessed(Error);
+    return;
 }

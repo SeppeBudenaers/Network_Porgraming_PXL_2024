@@ -9,7 +9,10 @@ int main( int argc, char *argv[] )
     try
     {
         ZMQ_Handeler ZMQ;
-        ZMQ.Service();
+        while(1)
+        {
+            ZMQ.Service();
+        }
         while (a.exec())
         {
 
