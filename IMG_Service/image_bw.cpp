@@ -17,6 +17,8 @@ void Image_BW::filter()
     Response.append(">");
 
     QByteArray decodedImage = QByteArray::fromBase64(Image_Data.toUtf8());
+    std::cout << "Size : "<<decodedImage.size()<<std::endl;
+
     for (int i = 0; i < Height; ++i) {
         for (int j = 0; j < Width; ++j) {
             int sum = 0;

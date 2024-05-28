@@ -4,13 +4,14 @@
 
 class Image
 {
+    private:
+        void createDirectoryIfNotExists(QString qPath);
     public:
-    Image(QString FilterType, QString UserName, QString ImageData, int width,int height, int channels) : Filter_Type(FilterType),User_Name(UserName), Width(width), Height(height), Channels(channels), Image_Data(ImageData){}
+        Image(QString FilterType, QString UserName, QString ImageData, int width,int height, int channels) : Filter_Type(FilterType),User_Name(UserName), Width(width), Height(height), Channels(channels), Image_Data(ImageData){}
+        virtual void filter(){};
+        void SaveImage(QString SaveName);
         QString Get_Response() {return Response;}
-    virtual void filter(){};
     protected:
-
-
         QString Response;
 
         QString Filter_Type;
@@ -20,6 +21,7 @@ class Image
         int Height = 0;
         int Channels = 0;
         QString Image_Data;
+
 };
 
 #endif // IMAGE_H

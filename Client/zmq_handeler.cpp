@@ -22,6 +22,9 @@ void ZMQ_Handeler::Push_Image(QString Image)
     Topic.append(ID);
     Topic.append(">");
     Topic.append(Image);
+    Topic.append(">");
+    Topic.append("bingbong.jpg");
+
 
     std::string Topic_Buffer = Topic.toStdString();
     const char* buffer = Topic_Buffer.c_str();

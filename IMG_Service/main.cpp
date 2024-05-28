@@ -2,6 +2,7 @@
 #include <iostream>
 #include <nzmqt/nzmqt.hpp>
 #include <QCoreApplication>
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 
 int main( int argc, char *argv[] )
 {
