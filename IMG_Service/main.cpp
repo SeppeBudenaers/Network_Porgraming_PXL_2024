@@ -11,6 +11,7 @@ int main( int argc, char *argv[] )
     try
     {
         ZMQ_Handeler ZMQ;
+        ZMQ.Heartbeat();
         while(1)
         {
             ZMQ.Service();

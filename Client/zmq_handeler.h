@@ -9,17 +9,17 @@ class ZMQ_Handeler
 {
 public:
     ZMQ_Handeler(char* agrv);
+    void Client();
+
+private:
     void Push_Image(QString Image);
     void Push_Save_Image(QString Image);
     void Push_Retrive_Image();
 
-
+    void SUB_Heartbeat();
     QString SUB_Image();
     void Receiving_Image();
 
-    void Client();
-
-private:
     QString Filter;
     QString Path;
     QString OutputPath;

@@ -1,4 +1,5 @@
 #include "zmq_handeler.h"
+#include "heartbeat.h"
 #include "request_worker.h"
 #include <iostream>
 #include <QThread>
@@ -14,6 +15,16 @@ ZMQ_Handeler::ZMQ_Handeler() {
     SUB.connect("tcp://benternet.pxl-ea-ict.be:24042");
     QString Topic = "LogicLab>IMG_SERVICE?";
     SUB.setsockopt(ZMQ_SUBSCRIBE, Topic.toStdString().c_str(), Topic.length());
+}
+void ZMQ_Handeler::Heartbeat(){
+    QThread *thread = new QThread;
+    class Heartbeat *beat = new class Heartbeat;
+    beat->moveToThread(thread);
+    QEventLoop::connect(thread, &QThread::started, [beat]() {
+        beat->HeartBeat_Service();
+        QThread::currentThread()->quit();
+    });
+    thread->start();
 }
 
 void ZMQ_Handeler::Service(){

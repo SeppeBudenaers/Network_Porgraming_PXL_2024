@@ -9,6 +9,7 @@ class ZMQ_Handeler
 {
 public:
     ZMQ_Handeler();
+    void Heartbeat();
     void Service();
 private:
     zmq::context_t context = zmq::context_t(1);

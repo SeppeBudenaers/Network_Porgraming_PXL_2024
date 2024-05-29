@@ -45,6 +45,22 @@ void ZMQ_Handeler::Push_Retrive_Image()
     std::cout << "Pushed :"<< std::endl;
 }
 
+void ZMQ_Handeler::SUB_Heartbeat()
+{
+    if(SUB.connected()){
+        QString Topic = "LogicLab>IMG_SERVICE!>BIEP";
+        std::string Topic_Buffer = Topic.toStdString();
+        const char* buffer = Topic_Buffer.c_str();
+        SUB.setsockopt(ZMQ_SUBSCRIBE, buffer, (Topic_Buffer.size()));
+        std::cout << "Subscribed: " << buffer << std::endl;
+    }
+    while(1){
+        zmq::message_t message;
+        SUB.recv(&message);
+        std::cout << message <<std::endl;
+    }
+}
+
 void ZMQ_Handeler::Push_Save_Image(QString Image)
 {
     QString Topic = "LogicLab>IMG_SERVICE?";
@@ -116,6 +132,10 @@ void ZMQ_Handeler::Client() {
             std::cin >> filter;
             Filter = QString::fromStdString(filter);
             if (menu.Option_handeler(&Filter)) {std::cout << "shutting down the program"<<std::endl;return;} // Quit the program
+
+            if (QString::compare(Filter, "HEARTBEAT", Qt::CaseInsensitive) == 0){
+                SUB_Heartbeat();
+            }
 
             if (QString::compare(Filter, "RETRIVE", Qt::CaseInsensitive) == 0){
                 path.clear();

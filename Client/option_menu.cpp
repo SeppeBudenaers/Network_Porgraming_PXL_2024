@@ -19,6 +19,10 @@ int Option_Menu::Option_handeler(QString *string)
         std::cout<<"    "<<"Image path: is relative path from the EXE to the image."<<std::endl;
         std::cout<<"    "<<"Output Path: is relative path from the EXE to the output of a image."<<std::endl;
         std::cout<<std::endl;
+        std::cout<<"Service status: HEARTBEAT"<<std::endl;
+        std::cout<<std::endl;
+        std::cout<<"    "<<"Once selecting this Aplication it will keep monotoring the health of the service (you may can't exit this application)."<<std::endl;
+        std::cout<<std::endl;
         std::cout<<"You can continue with the question above"<<std::endl;
         std::string temp;
         std::cin >> temp;
