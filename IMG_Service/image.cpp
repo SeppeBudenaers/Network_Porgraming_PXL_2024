@@ -31,8 +31,14 @@ void Image::RetriveImage(QString filepath)
     FilePath.append(filepath);
     unsigned char* imgData = stbi_load(FilePath.toStdString().c_str(), &Width, &Height, &Channels, 0);
     if (imgData == nullptr) {
-        std::cerr << "Error in loading the image\n";
-        exit(1);
+        Response.append("LogicLab>IMG_SERVICE!");
+        Response.append(">");
+        Response.append(Filter_Type);
+        Response.append(">");
+        Response.append(User_Name);
+        Response.append(">");
+        Response.append("CouldNotFindImage");
+        return;
     }
     std::cout << "Loaded image with dimensions: " << Width << "x" << Height << "x" << Channels << std::endl;
     QByteArray byteArray(reinterpret_cast<const char*>(imgData), Width * Height * Channels);

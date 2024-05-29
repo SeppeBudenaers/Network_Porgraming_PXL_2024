@@ -10,8 +10,13 @@ class ZMQ_Handeler
 public:
     ZMQ_Handeler(char* agrv);
     void Push_Image(QString Image);
+    void Push_Save_Image(QString Image);
+    void Push_Retrive_Image();
+
+
     QString SUB_Image();
     void Receiving_Image();
+
     void Client();
 
 private:
