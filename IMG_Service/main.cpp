@@ -7,7 +7,6 @@
 
 int main( int argc, char *argv[] )
 {
-    QCoreApplication a(argc, argv);
     try
     {
         ZMQ_Handeler ZMQ;
@@ -15,10 +14,6 @@ int main( int argc, char *argv[] )
         while(1)
         {
             ZMQ.Service();
-        }
-        while (a.exec())
-        {
-
         }
     }
     catch( nzmqt::ZMQException & ex )

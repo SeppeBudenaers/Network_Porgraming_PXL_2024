@@ -26,8 +26,36 @@ void Request_Worker::processRequest(const QString &rawStr) {
     }
     else{ID = Tokens[3];}
 
+    //PASWORD SHIT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if (QString::compare(Tokens[2], "LIST", Qt::CaseInsensitive) == 0 ) {
+        Image image_Process(Tokens[2], Tokens[3]);
+        image_Process.ListImage();
+        Topic_Buffer = image_Process.Get_Response().toStdString();
+
+        /*PUSHING AWSNER BACK*/
+        const char* buffer = Topic_Buffer.c_str();
+        PUSH.send(buffer, Topic_Buffer.length());
+        std::cout << "Pushed4 :"<< Topic_Buffer << std::endl;
+        emit finished();
+        return;
+    }
+
     /*ERROR HANDELING RETRIVING IMAGES*/
-     if(Tokens.size() <= 4 ){
+     if(Tokens.size() <= 5 ){
         QString Error = "NoFileName";
         Send_Error(Error);
         std::cout << Error.toStdString() << std::endl;
@@ -47,6 +75,8 @@ void Request_Worker::processRequest(const QString &rawStr) {
         emit finished();
         return;
     }
+
+
 
 
     /*ERROR HANDELING IMAGES*/

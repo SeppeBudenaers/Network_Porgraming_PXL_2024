@@ -45,6 +45,22 @@ void ZMQ_Handeler::Push_Retrive_Image()
     std::cout << "Pushed :"<< std::endl;
 }
 
+void ZMQ_Handeler::Push_List_Image()
+{
+    QString Topic = "LogicLab>IMG_SERVICE?";
+    Topic.append(">");
+    Topic.append(Filter);
+    Topic.append(">");
+    Topic.append(ID);
+//    Topic.append(">");
+//    Topic.append("yes");
+
+    std::string Topic_Buffer = Topic.toStdString();
+    const char* buffer = Topic_Buffer.c_str();
+    PUSH.send(buffer, Topic_Buffer.length());
+    std::cout << "Pushed :"<< std::endl;
+}
+
 void ZMQ_Handeler::SUB_Heartbeat()
 {
     if(SUB.connected()){
@@ -198,6 +214,11 @@ void ZMQ_Handeler::Client() {
                 Receiving_Image();
             }
 
+            if (QString::compare(Filter, "LIST", Qt::CaseInsensitive) == 0){
+                Push_List_Image();
+                SUB_Image();
+                Receiving_Image();
+            }
 
         }
 }

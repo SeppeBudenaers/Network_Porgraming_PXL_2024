@@ -15,6 +15,7 @@ private:
     void Push_Image(QString Image);
     void Push_Save_Image(QString Image);
     void Push_Retrive_Image();
+    void Push_List_Image();
 
     void SUB_Heartbeat();
     QString SUB_Image();

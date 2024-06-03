@@ -11,6 +11,7 @@ class Image
         virtual void filter(){};
         void SaveImage(QString SaveName);
         void RetriveImage(QString filepath);
+        void ListImage(void);
         QString Get_Response() {return Response;}
     protected:
         QString Response;
