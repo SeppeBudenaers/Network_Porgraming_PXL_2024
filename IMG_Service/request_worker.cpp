@@ -3,6 +3,7 @@
 #include "image_bw.h"
 #include "image_rgb.h"
 #include <iostream>
+#include <fstream>
 
 void Request_Worker::processRequest(const QString &rawStr) {
     std::string Topic_Buffer;
@@ -28,10 +29,32 @@ void Request_Worker::processRequest(const QString &rawStr) {
 
     //PASWORD SHIT
 
+    if(Tokens.size() <= 4 ){
+        QString Error = "NoPWD";
+        Send_Error(Error);
+        std::cout << Error.toStdString() << std::endl;
+        return;
+    }
 
+    if (QString::compare(Tokens[2], "REGISTER", Qt::CaseInsensitive) == 0 ) {
+        Image image_Process(Tokens[2], Tokens[3]);
+        image_Process.Register(Tokens[4]);
+        Topic_Buffer = image_Process.Get_Response().toStdString();
 
+        /*PUSHING AWSNER BACK*/
+        const char* buffer = Topic_Buffer.c_str();
+        PUSH.send(buffer, Topic_Buffer.length());
+        std::cout << "Pushed4 :"<< Topic_Buffer << std::endl;
+        emit finished();
+        return;
+    }
 
-
+    if(!validate_user(Tokens[3],Tokens[4])){
+        QString Error = "IncorrectPWD";
+        Send_Error(Error);
+        std::cout << Error.toStdString() << std::endl;
+        return;
+    }
 
 
 
@@ -65,7 +88,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
     /*RETRIVING IMAGE*/
     if (QString::compare(Tokens[2], "RETRIVE", Qt::CaseInsensitive) == 0 ) {
         Image image_Process(Tokens[2], Tokens[3]);
-        image_Process.RetriveImage(Tokens[4]);
+        image_Process.RetriveImage(Tokens[5]);
         Topic_Buffer = image_Process.Get_Response().toStdString();
 
         /*PUSHING AWSNER BACK*/
@@ -80,14 +103,14 @@ void Request_Worker::processRequest(const QString &rawStr) {
 
 
     /*ERROR HANDELING IMAGES*/
-    if (Tokens.size() <= 7 ) {
+    if (Tokens.size() <= 8 ) {
         QString Error = "InvalidImage";
         Send_Error(Error);
         std::cout << Error.toStdString() << std::endl;
         return;
     }
 
-    if(QByteArray::fromBase64(Tokens[7].toUtf8()).size() != (Tokens[4].toInt() * Tokens[5].toInt() * Tokens[6].toInt()) ){
+    if(QByteArray::fromBase64(Tokens[8].toUtf8()).size() != (Tokens[5].toInt() * Tokens[6].toInt() * Tokens[7].toInt()) ){
         QString Error = "InvalidImageSize";
         Send_Error(Error);
         std::cout << Error.toStdString() << std::endl;
@@ -97,7 +120,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
 
     /*IMAGE FILTERS*/
     if (QString::compare(Tokens[2], "BW", Qt::CaseInsensitive) == 0 ) {
-        Image_BW image_Process(Tokens[2], Tokens[3], Tokens[7], Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt());
+        Image_BW image_Process(Tokens[2], Tokens[3], Tokens[8], Tokens[5].toInt(), Tokens[6].toInt(), Tokens[7].toInt());
         image_Process.filter();
         Topic_Buffer = image_Process.Get_Response().toStdString();
 
@@ -110,7 +133,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
     }
 
     if (QString::compare(Tokens[2], "R", Qt::CaseInsensitive) == 0 || QString::compare(Tokens[2], "G", Qt::CaseInsensitive) == 0 ||QString::compare(Tokens[2], "B", Qt::CaseInsensitive) == 0 ) {
-        Image_RGB image_Process(Tokens[2], Tokens[3], Tokens[7], Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt());
+        Image_RGB image_Process(Tokens[2], Tokens[3], Tokens[8], Tokens[5].toInt(), Tokens[6].toInt(), Tokens[7].toInt());
         image_Process.filter();
         Topic_Buffer = image_Process.Get_Response().toStdString();
 
@@ -124,7 +147,7 @@ void Request_Worker::processRequest(const QString &rawStr) {
 
 
     /*ERROR HANDELING SAVING IMAGES*/
-    if (Tokens.size() <= 8 ) {
+    if (Tokens.size() <= 9 ) {
         QString Error = "InvalidSavingName";
         Send_Error(Error);
         std::cout << Error.toStdString() << std::endl;
@@ -133,8 +156,8 @@ void Request_Worker::processRequest(const QString &rawStr) {
 
     /*SAVING IMAGES*/
     if (QString::compare(Tokens[2], "SAVE", Qt::CaseInsensitive) == 0 ){
-        Image image_Process(Tokens[2], Tokens[3], Tokens[7], Tokens[4].toInt(), Tokens[5].toInt(), Tokens[6].toInt());
-        image_Process.SaveImage(Tokens[8]);
+        Image image_Process(Tokens[2], Tokens[3], Tokens[8], Tokens[5].toInt(), Tokens[6].toInt(), Tokens[7].toInt());
+        image_Process.SaveImage(Tokens[9]);
         Topic_Buffer = image_Process.Get_Response().toStdString();
 
         /*PUSHING AWSNER BACK*/
@@ -152,6 +175,36 @@ void Request_Worker::processRequest(const QString &rawStr) {
         std::cout << Error.toStdString() << std::endl;
         return;
     }
+}
+
+bool Request_Worker::validate_user(QString UserName, QString PWD)
+{
+    std::string filename = "./database_PWD.txt";
+    std::ifstream file; // Use ifstream for reading
+    std::vector<QString> lines;
+    file.open(filename, std::ios_base::in);
+    if (!file.is_open()) {
+        return false; // Maybe make a error
+    }
+
+    std::string line;
+    while (std::getline(file, line)) { // Read the file line by line
+        lines.push_back(QString::fromStdString(line)); // Convert std::string to QString and store in vector
+    }
+
+    file.close(); // Close the file
+    QString UsersCredentials;
+    UsersCredentials.append(UserName);
+    UsersCredentials.append("_");
+    UsersCredentials.append(PWD);
+
+    for (const QString& qLine : lines) {
+        if(QString::compare(qLine, UsersCredentials, Qt::CaseInsensitive) == 0 ){
+        return true;
+        }
+
+    }
+    return false;
 }
 
 void Request_Worker::Send_Error(QString Error)

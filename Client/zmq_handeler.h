@@ -8,7 +8,7 @@
 class ZMQ_Handeler
 {
 public:
-    ZMQ_Handeler(char* agrv);
+    ZMQ_Handeler(char* UserName,char* pwd);
     void Client();
 
 private:
@@ -25,6 +25,7 @@ private:
     QString Path;
     QString OutputPath;
     QString ID;
+    QString PWD;
     zmq::context_t context = zmq::context_t(1);
     zmq::socket_t PUSH = zmq::socket_t(context, ZMQ_PUSH);
     zmq::socket_t SUB = zmq::socket_t(context, ZMQ_SUB);

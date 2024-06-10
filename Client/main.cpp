@@ -15,7 +15,7 @@ int main( int argc, char *argv[] )
     try
     {
         
-        ZMQ_Handeler ZMQ(argv[1]);
+        ZMQ_Handeler ZMQ(argv[1],argv[2]);
         ZMQ.Client();
 
     }

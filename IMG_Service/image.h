@@ -12,6 +12,7 @@ class Image
         void SaveImage(QString SaveName);
         void RetriveImage(QString filepath);
         void ListImage(void);
+        void Register(QString PWD);
         QString Get_Response() {return Response;}
     protected:
         QString Response;

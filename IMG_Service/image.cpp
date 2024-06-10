@@ -128,3 +128,35 @@ void Image::ListImage()
 
     if(!foundItem){Response.append("NoFileForThisUserName");}
 }
+
+void Image::Register(QString PWD)
+{
+    QString Data;
+    Data.append(User_Name);
+    Data.append("_");
+    Data.append(PWD);
+
+    std::string filename = "./database_PWD.txt";
+    std::ofstream file;
+    file.open(filename, std::ios_base::app);
+    if (!file.is_open()) {
+        Response.append("LogicLab>IMG_SERVICE!");
+        Response.append(">");
+        Response.append(Filter_Type);
+        Response.append(">");
+        Response.append(User_Name);
+        Response.append(">");
+        Response.append("Could not find database");
+        return;
+    }
+
+    file <<Data.toStdString()<<"\n";
+
+    Response.append("LogicLab>IMG_SERVICE!");
+    Response.append(">");
+    Response.append(Filter_Type);
+    Response.append(">");
+    Response.append(User_Name);
+    Response.append(">");
+    Response.append("Registerd");
+}

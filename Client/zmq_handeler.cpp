@@ -7,7 +7,7 @@
 
 #include"stb_image_write.h"
 
-ZMQ_Handeler::ZMQ_Handeler(char* agrv) :ID(QString::fromStdString(agrv))
+ZMQ_Handeler::ZMQ_Handeler(char* UserName,char* pwd) :ID(QString::fromStdString(UserName)), PWD(QString::fromStdString(pwd))
 {
     PUSH.connect( "tcp://benternet.pxl-ea-ict.be:24041" );
     SUB.connect( "tcp://benternet.pxl-ea-ict.be:24042" );
@@ -20,6 +20,8 @@ void ZMQ_Handeler::Push_Image(QString Image)
     Topic.append(Filter);
     Topic.append(">");
     Topic.append(ID);
+    Topic.append(">");
+    Topic.append(PWD);
     Topic.append(">");
     Topic.append(Image);
 
@@ -37,6 +39,8 @@ void ZMQ_Handeler::Push_Retrive_Image()
     Topic.append(">");
     Topic.append(ID);
     Topic.append(">");
+    Topic.append(PWD);
+    Topic.append(">");
     Topic.append(Path);
 
     std::string Topic_Buffer = Topic.toStdString();
@@ -52,8 +56,8 @@ void ZMQ_Handeler::Push_List_Image()
     Topic.append(Filter);
     Topic.append(">");
     Topic.append(ID);
-//    Topic.append(">");
-//    Topic.append("yes");
+    Topic.append(">");
+    Topic.append(PWD);
 
     std::string Topic_Buffer = Topic.toStdString();
     const char* buffer = Topic_Buffer.c_str();
@@ -215,6 +219,12 @@ void ZMQ_Handeler::Client() {
             }
 
             if (QString::compare(Filter, "LIST", Qt::CaseInsensitive) == 0){
+                Push_List_Image();
+                SUB_Image();
+                Receiving_Image();
+            }
+
+            if (QString::compare(Filter, "REGISTER", Qt::CaseInsensitive) == 0){
                 Push_List_Image();
                 SUB_Image();
                 Receiving_Image();
